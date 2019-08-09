@@ -19,10 +19,8 @@ do
 done
 
 echo Create a file inline
-S=$RANDOM
 cat <<EOF > long_sleep.sh
-echo sleeping for $S s
-sleep $S
+sleep $2
 EOF
 
 echo
@@ -31,14 +29,14 @@ cat long_sleep.sh
 chmod 755 long_sleep.sh
 
 echo Start a background process then clean it up after a number of seconds
-END=$(($S % 100))
+END=$1
 echo end $END
 pids=()
 for i in $(seq 1 $END)
 do
    echo starting sleep process #$i
-   ./long_sleep.sh &
-   PID=$! 
+   sleep $2 &
+   PID=$!
    pids+=( $PID )
 done
 
@@ -48,8 +46,8 @@ do
    echo $i
 done
 
-echo processes
-ps
+# echo processes
+# ps
 
 echo create cleanup script
 cat <<EOF > cleanup.sh
@@ -62,7 +60,7 @@ chmod 755 cleanup.sh
 
 for i in "${pids[@]}"
 do
-   echo "echo killing $i; kill $i >/dev/null" >> cleanup.sh
+   echo "echo killing $i; kill -9 $i >/dev/null" >> cleanup.sh
 done
 
 echo "echo done cleaning" >> cleanup.sh
