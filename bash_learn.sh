@@ -53,6 +53,8 @@ ps
 
 echo create cleanup script
 cat <<EOF > cleanup.sh
+echo cleanup files
+rm long_sleep.sh
 echo cleanup all processes related too $0
 EOF
 
