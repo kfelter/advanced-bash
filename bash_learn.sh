@@ -1,4 +1,7 @@
 set -e
+echo Move to working directory that the script is in
+cd "$(dirname "$0")"
+
 echo Create array and loop over the elements
 about_me=(\
           "pid $$"\
