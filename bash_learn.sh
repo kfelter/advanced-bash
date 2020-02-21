@@ -1,6 +1,8 @@
 set -e
 echo Move to working directory that the script is in
 cd "$(dirname "$0")"
+SEC=$(date +%s)
+echo current time $SEC
 
 echo Create array and loop over the elements
 about_me=(\
